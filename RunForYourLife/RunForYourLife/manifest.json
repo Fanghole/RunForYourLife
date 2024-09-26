@@ -1,0 +1,9 @@
+{
+	"name": "RunForYourLife",
+	"version_number": "1.0.0",
+	"website_url": "https://github.com/Fanghole/RunForYourLife/",
+	"description": "When you use more stamina than you have, you lose life instead.",
+	"dependencies": [
+		"BepInEx-BepInExPack-5.4.2100"
+	]
+}
