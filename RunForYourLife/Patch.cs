@@ -1,15 +1,7 @@
-﻿using BepInEx;
-using HarmonyLib;
-using System.Diagnostics;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
-using BepInEx.Logging;
+﻿using HarmonyLib;
 using UnityEngine;
 using GameNetcodeStuff;
 using RunForYourLife;
-using Coroner;
 
 namespace Patch
 {
