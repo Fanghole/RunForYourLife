@@ -37,35 +37,42 @@ namespace RunForYourLife
 
         [HarmonyPatch("LateUpdate")]
         [HarmonyPostfix]
-        private static void MaxStaminaAndRegen(ref float ___sprintMeter, ref bool ___isSprinting, ref bool ___isWalking, ref float ___num3,
+        private static void MaxStaminaAndRegen(ref float ___sprintMeter, ref bool ___isSprinting, ref bool ___isWalking, ref float ___drunkness,
             ref float ___sprintTime, ref float ___carryWeight, ref bool ___isExhausted, ref int ___isMovementHindered)
         {
+            float num3 = 1f;
+
             PlayerControllerB localPlayerController = GameNetworkManager.Instance.localPlayerController;
+
+            if (___drunkness > 0.02f)
+            {
+                num3 *= Mathf.Abs(StartOfRound.Instance.drunknessSpeedEffect.Evaluate(___drunkness) - 1.25f);
+            }
 
             if (___isSprinting)
             {
-                ___sprintMeter = Mathf.Clamp(___sprintMeter + Time.deltaTime / ___sprintTime * ___carryWeight * ___num3, 0f, 1f); // Take vanilla value away
-                ___sprintMeter = Mathf.Clamp(___sprintMeter - Time.deltaTime / ___sprintTime * ___carryWeight * ___num3, 0f, RFYLConfig.baseStamina.Value); // Use modded value
+                ___sprintMeter = Mathf.Clamp(___sprintMeter + Time.deltaTime / ___sprintTime * ___carryWeight * num3, 0f, 1f); // Take vanilla value away
+                ___sprintMeter = Mathf.Clamp(___sprintMeter - Time.deltaTime / ___sprintTime * ___carryWeight * num3, 0f, RFYLConfig.baseStamina.Value); // Use modded value
             }
             else if (___isMovementHindered > 0)
             {
                 if (___isWalking)
                 {
-                    ___sprintMeter = Mathf.Clamp(___sprintMeter + Time.deltaTime / ___sprintTime * ___num3 * 0.5f, 0f, 1f);
-                    ___sprintMeter = Mathf.Clamp(___sprintMeter - Time.deltaTime / ___sprintTime * ___num3 * 0.5f, 0f, RFYLConfig.baseStamina.Value);
+                    ___sprintMeter = Mathf.Clamp(___sprintMeter + Time.deltaTime / ___sprintTime * num3 * 0.5f, 0f, 1f);
+                    ___sprintMeter = Mathf.Clamp(___sprintMeter - Time.deltaTime / ___sprintTime * num3 * 0.5f, 0f, RFYLConfig.baseStamina.Value);
                 }
             }
             else
             {
                 if (!___isWalking)
                 {
-                    ___sprintMeter = Mathf.Clamp(___sprintMeter - Time.deltaTime / (___sprintTime + 4f) * ___num3, 0f, 1f);
-                    ___sprintMeter = Mathf.Clamp(___sprintMeter + Time.deltaTime / (___sprintTime + 4f) * ___num3, 0f, RFYLConfig.baseStamina.Value);
+                    ___sprintMeter = Mathf.Clamp(___sprintMeter - Time.deltaTime / (___sprintTime + 4f) * num3, 0f, 1f);
+                    ___sprintMeter = Mathf.Clamp(___sprintMeter + Time.deltaTime / (___sprintTime + 4f) * num3, 0f, RFYLConfig.baseStamina.Value);
                 }
                 else
                 {
-                    ___sprintMeter = Mathf.Clamp(___sprintMeter - Time.deltaTime / (___sprintTime + 9f) * ___num3, 0f, 1f);
-                    ___sprintMeter = Mathf.Clamp(___sprintMeter + Time.deltaTime / (___sprintTime + 9f) * ___num3, 0f, RFYLConfig.baseStamina.Value);
+                    ___sprintMeter = Mathf.Clamp(___sprintMeter - Time.deltaTime / (___sprintTime + 9f) * num3, 0f, 1f);
+                    ___sprintMeter = Mathf.Clamp(___sprintMeter + Time.deltaTime / (___sprintTime + 9f) * num3, 0f, RFYLConfig.baseStamina.Value);
                 }
                 if (___isExhausted && ___sprintMeter > 0.2f * RFYLConfig.baseStamina.Value)
                 {
