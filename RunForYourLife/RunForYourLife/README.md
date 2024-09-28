@@ -2,7 +2,7 @@
 
 Lets you sprint for longer at the cost of your health. Be careful not to push yourself too hard.
 
-## by fanghole
+## by Danghole
 https://github.com/Fanghole/RunForYourLife
 
 
@@ -14,5 +14,5 @@ Located in `BepInEx/config/RunForYourLife.cfg`
 
 ### To-Do
 
-- Max stamina in config currently does nothing.
-- Optionally interface with Coroner by EliteMasterEric to show cause of death.
+- Create interface mod seperately for Coroner by EliteMasterEric to show cause of death.
+- Possibly add rate of stamina regen to config.
