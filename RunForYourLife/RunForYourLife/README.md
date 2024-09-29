@@ -2,7 +2,7 @@
 
 Lets you sprint for longer at the cost of your health. Be careful not to push yourself too hard.
 
-## by Danghole
+## by Fanghole
 https://github.com/Fanghole/RunForYourLife
 
 
@@ -14,5 +14,6 @@ Located in `BepInEx/config/RunForYourLife.cfg`
 
 ### To-Do
 
+- Add adjustable exhaustion (time needed before you can hold sprint again if you let go).
 - Create interface mod seperately for Coroner by EliteMasterEric to show cause of death.
 - Possibly add rate of stamina regen to config.

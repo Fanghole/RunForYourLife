@@ -13,7 +13,7 @@ namespace RunForYourLife
         {
             PlayerControllerB localPlayerController = GameNetworkManager.Instance.localPlayerController;
 
-            if (___sprintMeter <= RFYLConfig.damageInterval.Value + 0.1f && (___isSprinting || ___isJumping))
+            if (___sprintMeter <= RFYLConfig.damageInterval.Value * 2 && (___isSprinting || ___isJumping))
             {
                 if (!localPlayerController.isPlayerDead && localPlayerController.isPlayerControlled)
                 {
