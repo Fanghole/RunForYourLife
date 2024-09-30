@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using UnityEngine;
 using GameNetcodeStuff;
+using BepInEx.Logging;
 
 namespace RunForYourLife
 {
@@ -11,10 +12,13 @@ namespace RunForYourLife
         [HarmonyPostfix]
         private static void OverStamina(ref float ___sprintMeter, ref bool ___isSprinting, ref bool ___isExhausted, ref bool ___isJumping)
         {
+            ManualLogSource mls = BepInEx.Logging.Logger.CreateLogSource("RunForYourLife");
+
             PlayerControllerB localPlayerController = GameNetworkManager.Instance.localPlayerController;
 
             if (___sprintMeter <= RFYLConfig.damageInterval.Value * 2 && (___isSprinting || ___isJumping))
             {
+
                 if (!localPlayerController.isPlayerDead && localPlayerController.isPlayerControlled)
                 {
                     if (localPlayerController.health <= RFYLConfig.damageMagnitude.Value && RFYLConfig.isFatal.Value)
@@ -27,6 +31,10 @@ namespace RunForYourLife
                         if (RFYLConfig.isFatal.Value)
                         {
                             localPlayerController.MakeCriticallyInjured(enable: false); // This prevents the limping allowing more sprint. Without this player heals to 20.
+                        }
+                        if (RFYLConfig.damageMagnitude.Value >= 10)
+                        {
+                            ___sprintMeter = Mathf.Clamp(___sprintMeter - (float)RFYLConfig.damageMagnitude.Value / 125f, 0f, RFYLConfig.baseStamina.Value);
                         }
                     }
                 }
