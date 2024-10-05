@@ -1,6 +1,6 @@
 {
 	"name": "RunForYourLife",
-	"version_number": "1.1.2",
+	"version_number": "1.1.3",
 	"website_url": "https://github.com/Fanghole/RunForYourLife/",
 	"description": "When you use more stamina than you have, you lose life instead.",
 	"dependencies": [

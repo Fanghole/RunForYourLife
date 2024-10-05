@@ -1,4 +1,4 @@
-# Run For Your Life v1.1.2
+# Run For Your Life v1.1.3
 
 Lets you sprint for longer at the cost of your health. Be careful not to push yourself too hard.
 

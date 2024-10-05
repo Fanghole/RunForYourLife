@@ -2,6 +2,7 @@
 using UnityEngine;
 using GameNetcodeStuff;
 using BepInEx.Logging;
+using UnityEngine.UI;
 
 namespace RunForYourLife
 {
@@ -18,7 +19,6 @@ namespace RunForYourLife
 
             if (___sprintMeter <= RFYLConfig.damageInterval.Value * 2 && (___isSprinting || ___isJumping))
             {
-
                 if (!localPlayerController.isPlayerDead && localPlayerController.isPlayerControlled)
                 {
                     if (localPlayerController.health <= RFYLConfig.damageMagnitude.Value && RFYLConfig.isFatal.Value)
@@ -46,7 +46,7 @@ namespace RunForYourLife
         [HarmonyPatch("LateUpdate")]
         [HarmonyPostfix]
         private static void MaxStaminaAndRegen(ref float ___sprintMeter, ref bool ___isSprinting, ref bool ___isWalking, ref float ___drunkness,
-            ref float ___sprintTime, ref float ___carryWeight, ref bool ___isExhausted, ref int ___isMovementHindered)
+            ref float ___sprintTime, ref float ___carryWeight, ref bool ___isExhausted, ref int ___isMovementHindered, ref Image ___sprintMeterUI)
         {
             float num3 = 1f;
 
@@ -87,7 +87,7 @@ namespace RunForYourLife
                     ___isExhausted = false;
                 }
             }
-            localPlayerController.sprintMeterUI.fillAmount = ___sprintMeter / RFYLConfig.baseStamina.Value;
+            ___sprintMeterUI.fillAmount = ___sprintMeter / RFYLConfig.baseStamina.Value;
         }
 
         [HarmonyPatch("Awake")]
